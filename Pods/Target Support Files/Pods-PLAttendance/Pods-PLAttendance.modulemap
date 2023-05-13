@@ -1,0 +1,6 @@
+framework module Pods_PLAttendance {
+  umbrella header "Pods-PLAttendance-umbrella.h"
+
+  export *
+  module * { export * }
+}

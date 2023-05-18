@@ -19,7 +19,7 @@ class MemberCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        backView.layer.cornerRadius = 30
+        backView.layer.cornerRadius = 12
     }
 
 }

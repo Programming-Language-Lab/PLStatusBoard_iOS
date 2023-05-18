@@ -34,9 +34,16 @@ class ViewController: UIViewController {
         statusOut.layer.cornerRadius = 12
         statusClass.layer.cornerRadius = 12
         statusHome.layer.cornerRadius = 12
+        
+        
+        // mainCollection의 크기를 화면의 절반으로 설정
+           let screenHeight = UIScreen.main.bounds.height
+        mainCollection.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: screenHeight * 0.55)
+        
+       }
     }
     
-}
+
 
 
 
@@ -99,7 +106,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
 }
 extension ViewController : UICollectionViewDelegateFlowLayout {
-    
+    //
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
             let numberOfItemsPerRow: CGFloat = 3

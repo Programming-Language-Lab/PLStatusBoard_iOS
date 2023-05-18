@@ -10,11 +10,16 @@ import UIKit
 class MemberCollectionViewCell: UICollectionViewCell {
 
     
+    @IBOutlet weak var memberImage: UIImageView!
+    
+    @IBOutlet weak var backView: UIView!
     @IBOutlet weak var mainLabel: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        backView.layer.cornerRadius = 30
     }
 
 }

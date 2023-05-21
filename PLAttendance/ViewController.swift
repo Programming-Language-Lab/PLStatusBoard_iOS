@@ -24,8 +24,7 @@ class ViewController: UIViewController {
 
 
 //
-   let imageNames = ["changwoo", "dojin",  "ockjihoon","goeun", "haesung", "hyunsoo", "juyeon"]
-//                      , "yijihoon", "yoojin"]
+   let imageNames = ["changwoo", "dojin",  "ockjihoon","goeun", "haesung", "hyunsoo", "juyeon"                      , "yijihoon", "yoojin"]
 //    let memberNames = ["이창우", "김도진","옥지훈", "최고은", "이혜성", "전현수", "정주연" , "이지훈", "신유진"]
 //
     
@@ -48,54 +47,120 @@ class ViewController: UIViewController {
            let screenHeight = UIScreen.main.bounds.height
         mainCollection.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: screenHeight * 0.55)
         
-        
-        let docRef = db.collection("members").getDocuments() { (querySnapshot, err) in
+        let docRef = db.collection("Members").getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                var memberNames: [String] = []
-                var memberStatuses: [String] = []
                 for document in querySnapshot!.documents {
                     let memberName = document.get("name") as? String ?? ""
                     let memberStatus = document.get("status") as? String ?? ""
 
-                    memberNames.append(memberName)
-                    memberStatuses.append(memberStatus)
-                    self.mainCollection.reloadData()  // 데이터를 가져온 후 컬렉션 뷰를 다시 로드
-
+                    self.memberNames.append(memberName)
+                    self.memberStatuses.append(memberStatus)
                 }
-                // 이제 'memberNames' 와 'memberStatuses' 는 각 멤버의 이름과 상태를 포함하는 배열입니다.
-                // 이 배열을 collectionView의 cellForItemAt에서 사용하세요.
+                DispatchQueue.main.async {
+                    self.mainCollection.reloadData()  // 데이터를 가져온 후 컬렉션 뷰를 다시 로드
+                }
             }
         }
+
+        
+        mainCollection.delegate = self
+        mainCollection.dataSource = self
+
+        
        }
     }
     
 
-
-
-
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MemberCollectionViewCell", for: indexPath) as! MemberCollectionViewCell
+
+        // 이미지 파일명은 이미지 이름 배열에서 가져옵니다.
+        let imageName = imageNames[indexPath.row]
+        cell.memberImage?.image = UIImage(named: imageName)
+        
+        // 멤버 이름과 상태는 각각의 배열에서 가져옵니다.
+        cell.mainLabel?.text = memberNames[indexPath.row]
+     //cell.statusLabel?.text = memberStatuses[indexPath.row]
+        
+        return cell
+    }
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return memberNames.count // 배열 memberNames의 개수를 반환합니다.
-
+        
         
     }
     
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = mainCollection.dequeueReusableCell(withReuseIdentifier: "MemberCollectionViewCell", for: indexPath) as! MemberCollectionViewCell
+    func updateMemberStatus(at indexPath: IndexPath, status: String) {
+        let memberName = memberNames[indexPath.row]
+        let docRef = db.collection("Members").document(memberName)
         
-        if indexPath.row < imageNames.count {
-              cell.memberImage?.image = UIImage(named: imageNames[indexPath.row])
-          }
-          cell.mainLabel?.text = memberNames[indexPath.row]
-          return cell
-        
-        
-
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                docRef.updateData([
+                    "status": status
+                ]) { err in
+                    if let err = err {
+                        print("Error updating document: \(err)")
+                    } else {
+                        print("Document successfully updated")
+                    }
+                }
+            } else {
+                docRef.setData([
+                    "name": memberName,
+                    "status": status
+                ]) { err in
+                    if let err = err {
+                        print("Error setting document: \(err)")
+                    } else {
+                        print("Document successfully set")
+                    }
+                }
+            }
+        }
     }
+
+    
+    func updateMemberStatus(memberName: String, newStatus: String) {
+        let docRef = db.collection("Members").document(memberName)
+        
+        // check if document exists
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                // if document exists, update the status
+                docRef.updateData([
+                    "status": newStatus
+                ]) { err in
+                    if let err = err {
+                        print("Error updating document: \(err)")
+                    } else {
+                        print("Document successfully updated")
+                        self.mainCollection.reloadData()
+                    }
+                }
+            } else {
+                // if document does not exist, create a new document
+                docRef.setData([
+                    "name": memberName,
+                    "status": newStatus
+                ]) { err in
+                    if let err = err {
+                        print("Error setting document: \(err)")
+                    } else {
+                        print("Document successfully set")
+                        self.mainCollection.reloadData()
+                    }
+                }
+            }
+        }
+    }
+
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell \(indexPath.row + 1) was tapped")
@@ -104,19 +169,27 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
         
         let inLab = UIAlertAction(title: "재실", style: .default) { (action) in
             print("멤버\(indexPath.row + 1)가 재실중입니다")
+            self.updateMemberStatus(memberName: self.memberNames[indexPath.row], newStatus: "재실")
             
         }
         
         let goOut = UIAlertAction(title: "외출", style: .default) { (action) in
             print("멤버\(indexPath.row + 1)가 외출중입니다")
+            self.updateMemberStatus(memberName: self.memberNames[indexPath.row], newStatus: "외출")
+        
         }
         
         let inClass = UIAlertAction(title: "수업", style: .default) { (action) in
             print("멤버\(indexPath.row + 1)가 수업중입니다")
+            self.updateMemberStatus(memberName: self.memberNames[indexPath.row], newStatus: "수업")
+        
         }
         
         let goHome = UIAlertAction(title: "귀가", style: .default) { (action) in
             print("멤버\(indexPath.row + 1)가 집에 가버렷습니다!!!")
+            self.updateMemberStatus(memberName: self.memberNames[indexPath.row], newStatus: "귀가")
+        
+        
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -128,11 +201,16 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
+        
+        
     }
     
+    
+    
 }
+
 extension ViewController : UICollectionViewDelegateFlowLayout {
-    //
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
             let numberOfItemsPerRow: CGFloat = 3

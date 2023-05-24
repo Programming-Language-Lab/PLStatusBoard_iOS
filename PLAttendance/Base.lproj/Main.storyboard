@@ -17,10 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="R77-RJ-kkx">
-                                <rect key="frame" x="8" y="483" width="377" height="273"/>
+                            <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="equalSpacing" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="R77-RJ-kkx">
+                                <rect key="frame" x="8" y="480" width="377" height="273"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RsL-qc-KoB">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RsL-qc-KoB">
                                         <rect key="frame" x="0.0" y="0.0" width="377" height="60"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="재실" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zrb-TQ-jVw">
@@ -32,8 +32,11 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.84705882352941175" green="0.8784313725490196" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="f1g-vp-If1"/>
+                                        </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nQx-HC-GJ5">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQx-HC-GJ5">
                                         <rect key="frame" x="0.0" y="71" width="377" height="60"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="외출" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQf-Yg-elc">
@@ -47,9 +50,10 @@
                                         <color key="backgroundColor" red="0.9079965353012085" green="0.47642749547958374" blue="0.35996934771537781" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="Vaf-8w-7XO"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="YUF-Ty-s0C"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VZp-W1-CSc">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZp-W1-CSc">
                                         <rect key="frame" x="0.0" y="142" width="377" height="60"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="수업" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TDF-Ha-6cz">
@@ -61,8 +65,11 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.56725674867630005" green="0.91453713178634644" blue="0.91235369443893433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="kwl-8Y-Swa"/>
+                                        </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="89f-6h-jzK">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="89f-6h-jzK">
                                         <rect key="frame" x="0.0" y="213" width="377" height="60"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="귀가: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DlK-3P-Iro">
@@ -81,12 +88,14 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.99661844968795776" green="0.99661844968795776" blue="0.99661844968795776" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="LIB-2P-TlN"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                             </stackView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u44-01-LiB">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u44-01-LiB">
                                 <rect key="frame" x="0.0" y="59" width="393" height="416"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.14316093921661377" green="0.036454416811466217" blue="0.064434699714183807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="j3n-FY-kY0">
                                     <size key="itemSize" width="128" height="128"/>
@@ -113,7 +122,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="R77-RJ-kkx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="elT-2o-E6C"/>
+                            <constraint firstItem="R77-RJ-kkx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="5Pi-q4-Y0U"/>
+                            <constraint firstItem="u44-01-LiB" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-159" id="5nn-zw-hhI"/>
+                            <constraint firstItem="u44-01-LiB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LGC-Nt-GLp"/>
+                            <constraint firstItem="R77-RJ-kkx" firstAttribute="top" secondItem="u44-01-LiB" secondAttribute="bottom" constant="5" id="Ol0-sw-DeZ"/>
+                            <constraint firstItem="u44-01-LiB" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="REv-Zl-iKN"/>
+                            <constraint firstItem="u44-01-LiB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eFt-Lo-gFh"/>
+                            <constraint firstItem="u44-01-LiB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="qob-OQ-bhF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="R77-RJ-kkx" secondAttribute="trailing" constant="8" id="xjx-Nb-Zpc"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="재실상태" id="EAZ-GT-jLM">

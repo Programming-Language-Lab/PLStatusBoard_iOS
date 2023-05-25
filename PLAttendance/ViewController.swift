@@ -24,10 +24,10 @@ class ViewController: UIViewController {
 
 
 //
-   let imageNames = ["changwoo", "dojin", "goeun", "haesung", "hyunsoo",  "juyeon"                   , "ockjihoon"  , "yijihoon", "yoojin"]
-//    let memberNames = ["이창우", "김도진","옥지훈", "최고은", "이혜성", "전현수", "정주연" , "이지훈", "신유진"]
+   let imageNames = ["changwoo", "dojin", "goeun", "haesung", "hyunsoo",  "yijihoon"                   , "ockjihoon"  , "juyeon", "yoojin"]
+
 //
-    let nameToDocId = ["창우": "changwoo", "도진": "dojin", "옥지훈": "ockjihoon", "이ㅎㅅ": "haesung", "현수": "hyunsoo", "주연": "juyeon", "이지훈": "yijihoon", "유진": "yoojin", "고은": "goeun"]
+    let nameToDocId = ["창우": "changwoo", "도진": "dojin", "옥지훈": "jihoonOck", "혜성": "haesung", "현수": "hyunsoo", "주연": "juyeon", "이지훈": "jihoonLee", "유진": "yoojin", "고은": "goeun"]
 
     
     override func viewDidLoad() {
@@ -188,13 +188,14 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell \(indexPath.row + 1) was tapped")
 
-        let alertController = UIAlertController(title: "멤버\(indexPath.row + 1)", message: "상태를 변경합니다.", preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "\(memberNames[indexPath.row])", message: "상태를 변경합니다.", preferredStyle: .actionSheet)
 
         let inLab = UIAlertAction(title: "재실", style: .default) { (action) in
-            print("멤버\(indexPath.row + 1)가 재실중입니다")
+            print("\(self.memberNames[indexPath.row])가 재실중입니다")
             let docId = self.nameToDocId[self.memberNames[indexPath.row]] ?? ""
             self.reloadMemberStatus(memberName: docId, newStatus: "재실")
         }
+
 
         let goOut = UIAlertAction(title: "외출", style: .default) { (action) in
             print("멤버\(indexPath.row + 1)가 외출중입니다")

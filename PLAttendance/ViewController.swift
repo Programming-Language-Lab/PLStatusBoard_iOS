@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     let db = Firestore.firestore()
     var memberNames: [String] = []
-    var memberStatuses: [String] = []  // 이 배열은 각 멤버의 상태를 저장합니다.
+    var memberStatuses: [String] = []
     
 
 
